@@ -6,6 +6,8 @@ A super simple FastAPI application that allows students to view and sign up for 
 
 - View all available extracurricular activities
 - Sign up for activities
+- Display active school announcements from the database
+- Manage announcements when signed in as a teacher
 
 ## Getting Started
 
@@ -27,10 +29,15 @@ A super simple FastAPI application that allows students to view and sign up for 
 
 ## API Endpoints
 
-| Method | Endpoint                                                          | Description                                                         |
-| ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
-| GET    | `/activities`                                                     | Get all activities with their details and current participant count |
-| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| Method | Endpoint                                                                      | Description                                                         |
+| ------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| GET    | `/activities`                                                                 | Get all activities with their details and current participant count |
+| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu`             | Sign up for an activity                                             |
+| GET    | `/announcements`                                                              | Get announcements that are currently active                         |
+| GET    | `/announcements/manage?teacher_username=principal`                            | Get all announcements for the management dialog                     |
+| POST   | `/announcements?teacher_username=principal`                                   | Create a new announcement                                           |
+| PUT    | `/announcements/{announcement_id}?teacher_username=principal`                 | Update an existing announcement                                     |
+| DELETE | `/announcements/{announcement_id}?teacher_username=principal`                 | Delete an announcement                                              |
 
 ## Data Model
 
@@ -47,4 +54,4 @@ The application uses a simple data model with meaningful identifiers:
    - Name
    - Grade level
 
-All data is stored in memory, which means data will be reset when the server restarts.
+The application stores activities, teachers, and announcements in MongoDB.
