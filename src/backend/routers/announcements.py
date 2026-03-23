@@ -41,7 +41,10 @@ def _parse_iso_date(value: Optional[str], field_name: str, required: bool = Fals
         return None
 
     try:
-        return date.fromisoformat(value).isoformat()
+        # Validate that the value is a proper ISO date without performing
+        # an unnecessary round-trip conversion back to string.
+        date.fromisoformat(value)
+        return value
     except ValueError as exc:
         raise HTTPException(
             status_code=400,
